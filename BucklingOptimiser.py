@@ -8,6 +8,11 @@ class BucklingOptimiser:
         for graph_name in ['A', 'B', 'C']:
             self.graphs[graph_name] = GraphProcessor("graph_{}.png".format(graph_name))
 
+            #if graph_name == 'C':
+            #    self.graphs[graph_name] = GraphProcessor("graph_B.png")
+            #else:
+            #    self.graphs[graph_name] = GraphProcessor("graph_{}.png".format(graph_name))
+
     def mode_max_stress(self, mode, slenderness):
         graph = self.graphs[mode]
         maximum_stress = graph.x_to_y(slenderness)
