@@ -9,8 +9,8 @@ import random
 class Optimise:
     def __init__(self):
         print("Let's begin!")
-        self.points = [[0,0], [815/2,0], [815,0], [0,255], [815/2,255/2]]
-        self.connections = [[1,2], [2,3], [4,5], [5,3], [4,2], [2,5]]
+        self.points = [[0,0], [815/2,0], [815,0], [0,255]]
+        self.connections = [[1,2], [2,3], [4,3], [4,2]]
         self.constraints = {1: 'x', 4:'xy'}
         self.loads = [{3:[0,-1350,0]}, {3:[0,135,0]}]
         self.material_properties = [
@@ -38,18 +38,18 @@ class Optimise:
 
         top_mass = 10000000000000000000
         top_config = {}
-        for i in range(5000):
+        for i in range(500):
             points_copy = points.copy()
-            for point_num in [1,4]:
-                point = points_copy[point_num]
-                new_point_x = point[0] + random.randint(-random_factor,random_factor) / 1000000000
-                new_point_y = point[1] + random.randint(-random_factor,random_factor) / 1000000000
-                if new_point_x <= 0:
-                    new_point_x = 0.001
-                if new_point_x >= 815:
-                    new_point_x = 814.999
-                new_point = [new_point_x, new_point_y]
-                points_copy[point_num] = new_point
+            # for point_num in [4]:
+            #     point = points_copy[point_num]
+            #     new_point_x = point[0] + random.randint(-random_factor,random_factor) / 1000000000
+            #     new_point_y = point[1] + random.randint(-random_factor,random_factor) / 1000000000
+            #     if new_point_x <= 0:
+            #         new_point_x = 0.001
+            #     if new_point_y <= 0:
+            #         new_point_y = 0.001
+            #     new_point = [new_point_x, new_point_y]
+            #     points_copy[point_num] = new_point
 
             for point_num in [2]:
                 point = points_copy[point_num]
@@ -57,17 +57,18 @@ class Optimise:
                 new_point = [point[0], new_point_y]
                 points_copy[point_num] = new_point
 
-            # for point_num in [1]:
-            #     point = points_copy[point_num]
-            #     new_point_x = point[0] + random.randint(-random_factor,random_factor) / 1000000000
-            #     if new_point_x <= 0:
-            #         new_point_x = 0.001
-            #     if new_point_x >= 815:
-            #         new_point_x = 814.999
-            #
-            #     new_point = [new_point_x, point[1]]
-            #     points_copy[point_num] = new_point
-
+            for point_num in [1]:
+                point = points_copy[point_num]
+                new_point_x = point[0] + random.randint(-random_factor,random_factor) / 1000000000
+                new_point_y = point[1] + random.randint(-random_factor,random_factor) / 1000000000
+                if new_point_x <= 0:
+                    new_point_x = 0.001
+                if new_point_x >= 815:
+                    new_point_x = 814.999
+                if new_point_y <= 0:
+                    new_point_y = 0.001
+                new_point = [new_point_x, new_point_y]
+                points_copy[point_num] = new_point
 
             try:
                 bridge, member_properties, total_mass = self.synthesis(points_copy)

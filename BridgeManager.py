@@ -206,8 +206,9 @@ class BridgeManager:
 
     def draw_member_properties(self):
         if hasattr(self, 'final_members'):
-            data_converter = {'mode': {}, 'mass': {}, 'breadth': {}}
+            data_converter = {'mode': {}, 'mass': {}, 'breadth': {},'length': {}}
             for member, properties in self.final_members.items():
+                data_converter['length'][member] = "{}mm".format(round(self.get_length(member[0], member[1]),1))
                 for property_name, property_value in properties.items():
                     if property_name == 'material':
                         data = '{}mm'.format(property_value['b'])
@@ -219,9 +220,10 @@ class BridgeManager:
 
                     data_converter[property_name][member] = data
 
-            self.draw_member_data(data_converter['mode'], [5, 40])
-            self.draw_member_data(data_converter['mass'], [5, 30])
-            self.draw_member_data(data_converter['breadth'], [5, 20])
+            self.draw_member_data(data_converter['length'], [5, 70])
+            self.draw_member_data(data_converter['mode'], [5, 90])
+            self.draw_member_data(data_converter['mass'], [5, 50])
+            self.draw_member_data(data_converter['breadth'], [5, 30])
 
     def draw_member_data(self, data, displacement):
         for points, data in data.items():
